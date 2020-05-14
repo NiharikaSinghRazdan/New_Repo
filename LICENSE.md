@@ -1,3 +1,3 @@
 #NEW LICENSE
 
-new license
+new license is created
