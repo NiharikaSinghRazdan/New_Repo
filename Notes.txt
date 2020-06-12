@@ -50,3 +50,40 @@ quit;
 
 
 sudo chmod -R 777 /var/www/html/moodle
+
+
+
+#########################################DRUPAL INSTALLATION########################
+sudo apt update && sudo apt upgrade
+sudo apt-get install tasksel
+sudo tasksel install lamp-server
+sudo mysql -u root -p (enter password and remember it)
+CREATE DATABASE drupal DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+create user 'drupaluser'@'localhost' IDENTIFIED BY 'MoodleDrupal';
+grant all privileges on drupal.* to "drupaluser"@"localhost";
+quit;
+wget https://ftp.drupal.org/files/projects/drupal-8.9.0.tar.gz
+tar xzvf drupal-8.9.0.tar.gz
+mkdir /var/www/html/drupal
+cp -R drupal-8.9.0/* drupal-8.9.0/.htaccess /var/www/html/drupal
+mkdir /var/www/html/drupal/sites/default/files
+sudo chown www-data:www-data /var/www/html/drupal/sites/default/files
+sudo cp /var/www/html/drupal/sites/default/default.settings.php /var/www/html/drupal/sites/default/settings.php
+sudo chown www-data:www-data /var/www/html/drupal/sites/default/settings.php
+service apache2 restart
+sudo nano /etc/apache2/apache2.conf
+### change AllowOverRide None to All in Directory /var/www
+sudo nano /etc/apache2/sites-enabled/000-default.conf
+## add lines below DocumentRoot /var/www/html
+<Directory /var/www/html/>
+           Options Indexes FollowSymLinks
+           AllowOverride All
+</Directory>
+sudo service apache2 restart
+sudo apt-get install php-dom
+sudo apt-get install php-gd
+apt-cache search php | grep -i simplexml
+sudo apt-get install php-xml
+sudo apt install php-mbstring
+sudo a2enmod rewrite
+sudo apache2ctl -M
