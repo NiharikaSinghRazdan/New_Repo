@@ -22,7 +22,7 @@ cd ~
 sudo mkdir /var/moodledata
 sudo chown -R www-data /var/moodledata
 sudo chmod -R 777 /var/moodledata
-sudo chmod -R 0755 /var/html/moodle
+sudo chmod -R 0755 /var/www/html/moodle
 
 sudo mkdir /var/moodledata
 sudo chown -R www-data /var/moodledata
